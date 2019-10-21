@@ -1,0 +1,387 @@
+import time
+import random
+import sys
+from sys import exit
+
+#*****************************************NAME*****************************************
+name = input("Before we start, what is your name: ")
+
+#****************************************OBJECTS***************************************
+objects = []#creates empty list
+
+#**************************************GAMEFUNCTIONS***********************************
+def fiftyfiftyRP():
+
+    number = random.randrange(1,2)
+
+    guess = int(input("Please enter your guess: "))
+
+    if guess == number:
+        print ("Demon: You're right. For god sake. Go through.")
+        room4()
+    elif guess > number:
+        print ("Too High! Game over!")
+        dead()
+    elif guess < number:
+        print ("Too Low! Game over!")
+        dead()
+        
+#****************************************ENEMYFIGHT**************************************
+def fight_enemy(enemy):
+
+    fdmg1 = int(random.randint(1,7))
+    edmg1 = int(random.randint(1,6))
+    print("You hit a", fdmg1)
+    print("The " + enemy + " hits a", edmg1) 
+    time.sleep(1)
+    if edmg1 > fdmg1:
+        print("You died")
+        dead()
+    elif edmg1 < fdmg1:
+        print("You killed the " + enemy)
+        room4()
+        
+    else:
+        print("You didnt kill the " + enemy + " but you managed to escape through the portal behind the ghost")
+        room4()
+        
+#*****************************************MAZEDEATH***************************************
+def witchdead():
+    print ("The witch is waiting for you at the end of the path. She runs at you and stabs you in the heart. You bleed out in the forest to never be seen again")
+    exit(0)
+    
+#*******************************************DEAD******************************************
+def dead():
+    print ("\nYou've really messed up here " + name + " you need to be more careful!")
+    exit(0)
+
+
+#*****************************************MAINGAME****************************************
+def game():
+
+    print (name + " ,you've just fallen asleep for the night but something seemed off before you did.")
+    #time.sleep(3)
+    print ("\nYou feel like you are dreaming for what seems like eternity, the dream ends with you falling down and landing with a thud.")
+    time.sleep(3)
+    print ("\nYou're greeted by this huge white demon who tells you you cant leave unless you escape and defeat him...")
+    time.sleep(3)
+    print("\nDemon: So "+ name +" You think you can escape, huh? HAHAHAHAHA good luck. If however, you do escape, you will wake up. Lets Begin.")
+    
+    input("\nPress enter key to continue")
+    room1()
+
+#******************************************ROOM1******************************************
+def room1():
+    
+    print ("\nPlayer: So, this is it, I either win, or die trying, what can I use in this room to help me escape I wonder. *Player Looks Around*")
+    time.sleep(3)
+    print ("\nYou see a dusty cupboard in the corner of the room and there seems to be a key underneath, there are however lots of black widow spiders under it but they may be dead. Do you risk it?") 
+    time.sleep(3)
+    ch1 = str(input("Do you take the key and risk death? [y/n]:")).lower()
+   
+    #************************************KEY TAKEN************************************
+    if ch1 in ['y', 'yes']:
+        print ("\nYou have chosen to tempt fate and put your hand under the cupboard and grab the key. The spiders are dead so you survive. This time.")
+        time.sleep(2)
+        objects.append("key")
+        
+
+        ch2 = str(input("You are about to leave the room and spot an odd looking stick on the floor. It has some string attached so may be a trap. Do you want to try take it? [y/n]")).lower()
+
+        if ch2 in ['y', 'yes']:
+            print ("The stick wasnt attached to anything so you pick it up.")
+            time.sleep(2)
+            objects.append('stick')
+        else:
+            print ("\nYou chose not to pickup the stick, it looked perfectly safe too...")
+
+               
+    #********************************KEY NOT TAKEN*************************************
+    else:
+        window = str(input("\nYou chose not to take the key, you do however see a window out the corner of your eye, do you jump out of it and take the easy way out? [y/n]")).lower
+         
+        if window in ['y', 'yes']:
+            dead()
+        else:
+            print ("\nDemon: You have to do something! Lets go back to the start so you can actually decide...")
+            room1()
+    if 'key' in objects:
+        print ("\nThere is a big metal door you approach. Its locked but the key makes it budge and you enter through.")
+        room2()
+
+    else:
+        print ("\nThe door is locked. It wont move. Go back and try again.")
+        room1()
+
+#******************************************ROOM2*****************************************
+def room2():
+        objects.remove('key')
+        time.sleep(3)
+        print ("\nYou push the door open and walk into the next room. The door slams as you get in the room and theres a little pumpkin on the floor that lights up.")
+        time.sleep(3)
+        print ("\nPumpkin: Hello. I have an offering for you. Inside of me there is some spray. You dont have to take it but just like everything else there is a catch. This one is that it might combust on touch...")
+        time.sleep(3)
+        
+        ch3 = str(input("Player: Do I pick it up and satisfy the pumpkin or not, and risk death? [y/n]")).lower()
+
+        #********************************ADD SPRAY**********************************
+        if ch3 in ['y', 'yes']:
+            objects.append('spray')
+            print ("\nYou've chosen to pick up the spray. This may be useful later?")
+            
+        #*******************************LEAVE SPRAY*********************************
+        else:
+            print ("\nYou chose to leave the spray. You'll never know what it was for now. Ha Ha Ha.")
+            
+        time.sleep(3)
+        print ("\nDemon: So, " + name + " You've made it to the second room.")
+        time.sleep(3)
+        print ("\nDemon: This is going to get a lot harder now. In this room is a piece of paper with a choice on it.")
+        time.sleep(3)
+        print ("\n\n*You walk towards the paper in fear as the demon vanishes into thin air, it reads;*")
+        time.sleep(4)
+
+        print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("In front of you are 2 portals. Left, or Right")
+        print("You must choose one, I'm not helping on which")
+        print("Whichever you choose, will be your fate...   ")
+        print("               choose wisely                 ")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        time.sleep(5)
+        
+        roomchoice = str(input("Player: So, I get 2 choices, the left looks all mystical and blue and the right looks all shiny and yellow. Should I choose Yellow or Blue? ")).lower()
+
+        if roomchoice in ['blue', 'left']:
+            leftportal()
+            
+        elif roomchoice in ['yellow','right']:
+            rightportal()
+
+
+#*****************************************LEFT PORTAL**************************************
+def leftportal():
+    
+    #***************************************ENEMY*********************************
+    enemy = ("Ghost")
+    
+    time.sleep(3)
+    print ("\nYou chose to go through the blue portal, you fly through it very disorientated and get thrown out of the other side. It's a pitch black room and your heart starts racing...")
+    time.sleep(3)
+    print ("\n'WHO DARES ENTER MY LAIR'")
+    time.sleep(3)
+    print ("\n*The lights instantly turns on and a ghost appears and flies towards you* Ghost: You have to defeat me to make it past this room. If you don't, well, you're all mine.")
+    time.sleep(3)
+    print ("\nPlayer: Looks like I have to fight it, wonder if I have anything to help me?")
+    time.sleep(3)
+    
+    if 'spray' in objects: 
+        print ("\nYES! The spray, I've always read somewhere ghosts are weak to sprays, you sprint towards the ghost with no fear and spray it, the ghost screams at you and slowly disappears")
+        room4()
+    else:
+        print ("\nYou don't have the spray from earlier, you see a water gun next to you on the wall, you quickly run over to get it before being spotted. ")
+        time.sleep(3)
+        fight_enemy(enemy)
+        
+        room4()
+
+
+#******************************************RIGHT PORTAL*************************************
+def rightportal():
+    print ("\nYou came flying out of the portal into a room. The portal closes behind you and you stand there looking confused. There is a door the opposite end of the room you are in. You walk towards it.")
+    time.sleep(3)
+    print ("\nYou get to the door and there is a hole in the door, you think about the stick you saw earlier, it seemed pointless but now in your time of need it seems very important.")
+    time.sleep(3)
+    
+    if "stick" in objects:
+        print("\nYou pull the stick out of your bag and shove it in the hole. Nothing seems to happen but then the lock click! *CLUNK* The door opens a slight bit so you yank it before it closes!")
+        room4()
+
+    else:
+        print("\nYou didn't grab the stick earlier. You're an idiot. You reach around your bag and pockets for anything you think might help. You feel a pin type thing over your trousers but you remembered this isnt real life")
+        print("\nThis pin may have been dipped in poison by the demon, you have no choice whether you grab it or not. Its either that or be forever stuck in this room.")
+        print("\nDemon: Choose a number, 1 or 2. If you get it right you live!")
+        fiftyfiftyRP()
+
+#*******************************************ROOM4*******************************************
+def room4():
+    print ("\nYou survived the hardest room so far, you walk out of the previous room and drop down a hole. Like previous you feel like you're falling forever. You land in a thud in a forest clearing")
+    time.sleep(3)
+    print ("\nYou look up and realise you've beaten the haunted house, you just need to escape. On the ground is another note you pick up and read.")
+    time.sleep(4)
+
+    print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("  Welcome to the enchanted forest. You need to escape from here.  ")
+    print("On the ground are some fireflies. They may be too simple to follow")
+    print("   or... you navigate the forest yourself and risk getting lost   ")
+    print(" I must warn you, there is an axe wielding witch wandering around ")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    time.sleep(5)
+    
+    print ("\nThere are three paths in front of you, North, East, West, or the fireflies. Which do you choose?")
+    direction = str(input("Which direction do you choose to go? ")).lower()
+    time.sleep(2)
+    if direction in ['n','north']:
+        north()
+
+    elif direction in ['w','west']:
+        west()
+
+    elif direction in ['e','east']:
+        east()
+
+    elif direction in ['fireflies']:
+        fireflies()
+
+#********************************************NORTHPATH**************************************
+def north():
+    print ("\nYou decide to walk north down the odd looking gravel path, you're walking for quite some time")
+    time.sleep(3)
+    print ("\nYou end up at another path choice, West or North, choose carefully")
+    time.sleep(3)
+
+    NorW = str(input("North or west? ")).lower()
+    if NorW in ["north"]:
+        house()
+
+    elif NorW in ['west']:
+        witchdead()
+
+#********************************************WESTPATH**************************************
+def west():
+    print("\nYou decide to walk west down the stone path, you're walking for quite some time")
+    time.sleep(3)
+    print("\nYou end up at another choice, North or South, choose carefully")
+    time.sleep(3)
+
+    NorS = str(input("North or South? ")).lower()
+    if NorS in ['north']:
+        print ("You go north for a little and then get a second choice, East or West?")
+        EorW = str(input("East or West? ")).lower()
+
+        if EorW in ['east']:
+            house()
+
+        elif EorW in ['west']:
+            witchdead()
+        
+    elif NorS in ['south']:
+        witchdead()
+        
+#********************************************EASTPATH**************************************        
+def east():
+    print("\nYou decide to walk east down the brick path, you're walking for quite some time")
+    time.sleep(3)
+    print("\nYou end up at another choice, North or South, choose carefully")
+    time.sleep(3)
+
+    NorS = str(input("North or South? ")).lower()
+    if NorS in ['north']:
+        print("You go north for a little and then get a second choice, East or West?")
+        EorW = str(input("East or West? ")).lower()
+        
+        if EorW in ['east']:
+            witchdead()
+
+        elif EorW in ['west']:
+            house()
+
+    elif NorS in ['south']:
+        witchdead()
+
+#*******************************************FOLLOWFIREFLIES*********************************
+def fireflies():
+    print("You decide to take the easy way out and follow the fireflies. The fireflies take you South, the opposite way to where you need to be! You cant stop following them as you're lured towards the light!")
+    witchdead()
+
+#************************************************HOUSE**************************************
+def house():
+    time.sleep(3)
+    print("\nYou've managed to find a way to the wooden shack at the back of the forest. Its surrounded by eerie trees and what sounds like ghost noises")
+    time.sleep(3)
+    print("\nYou're reluctant to go in but theres no where else you can go now, you bite the bullet and open the door to the shack.")
+    time.sleep(3)
+    print("\nYou walk in the shack. *BANGGG* The door slams behind you and automatically locks.")
+    time.sleep(3)
+    print("\nYou are now presented with your stereotypical wooden lodge, fireplace, deer on the wall and fluffy rugs. There is a keyrack with three keys on and youre instructed by the letter to choose one.")
+    time.sleep(3)
+
+    #*************************************KEY-TO-LAST-ROOM*********************************
+    key = input("Which key would you like? 1, 2, 3?")
+
+    if key == '1':
+        print("You chose key 1")
+        objects.append('key1')
+
+    elif key == '2':
+        print("You chose key 2")
+        objects.append('key2')
+
+    elif key == '3':
+        print("You chose key 3")
+        objects.append('key3')
+        
+    print("\nYou choose this key and add it to your inventory")
+    time.sleep(3)
+    print("\nThe floor below you crumbles and you fall. You are in a big white room with a giant door infront of you.")
+    time.sleep(3)
+    print("\nThere is a slot for a key...")
+    time.sleep(3)
+    
+
+    if 'key1' in objects:
+        time.sleep(3)
+        print("\nYou try jamming the key in the hole. It doesn't work and the demon appears behind you. Demon: 'You've done well getting this far but im afraid this key doesn't work and for that, im going to have to eat you.")
+        dead()
+
+    elif 'key3' in objects:
+        time.sleep(3)
+        print("\nYou try jamming the key in the hole. It doesn't work and the demon appears behind you. Demon: 'You've done well getting this far but im afraid this key doesn't work and for that, im going to have to eat you.")
+        dead()
+
+    elif 'key2' in objects:
+        time.sleep(3)
+        print("\nYou try jamming the key in the hole. It seems to wiggle a bit and then the door unlocks. The whole wall crumbles inside of itself to reveal a giant stone statue")
+        endroom()
+
+#*********************************************ENDROOM**************************************
+
+def endroom():
+    print("\nThe statue starts crumbling as if it was a real person, the demon you saw at the start appears inside the statue. ")
+    time.sleep(3)
+    print("\nDemon: Well, You've made it to the final room and now you have to defeat me. Good luck...")
+    time.sleep(3)
+    print("\nIn front of you are 3 items, a baseball bat, a flamethrower or a bottle of water.")
+    time.sleep(3)
+    print("\nWhich will you pick up to help you fight?")
+    time.sleep(3)
+    item = str(input("The baseballbat, Flamethrower or Water?")).lower()
+    time.sleep(3)
+
+    if item in ['baseballbat']:
+        print("\nYou pick up the baseball bat and sprint toward the demon to try end it all")
+        time.sleep(3)
+        print("\nIt hits him on the leg and has no effect. The demon grabs you and eats you whole.")
+        dead()
+        
+    elif item in ['water']:
+        print("\nYou grab the water. You chuck it over the demon. He seems to turn back into stone ever so slowly. He tries to grab you but freezes by this time. Is this it?")
+        time.sleep(3)
+        print("\nThe demon fully freezes. The room starts spinning and you wake up in your bed at home.")
+        time.sleep(3)
+        print( name +":Well, that was a weird dream")
+        end()
+        
+    elif item in ['flamethrower']:
+        print("\nYou pick up the flamethrower and shoot the demon with it. He disintegrates into thin air.")
+        time.sleep(3)
+        print("\nThe demon burns. The room starts spinning and you wake up in your bed at home.")
+        time.sleep(3)
+        print( name +": Well, that was a weird dream")
+        end()
+#*******************************************GAME-END***************************************
+def end():
+    print("\nYou have made it to the end of the game and defeated the demon of your dream. Hopefully this will never happen again. You go back to sleep, hesitant to do so. . . ")
+    exit(0)
+
+#******************************************MAIN-GAME-RUN***********************************
+game()
